@@ -1,7 +1,7 @@
 # AWS EKS Cluster Configuration
 module "eks" {
     source          = "terraform-aws-modules/eks/aws"
-    version         = "~> 21.0"
+    version         = "~> 20.0"
 
     cluster_name    = "${var.environment}-three-tier-cluster"
     cluster_version = var.cluster_version
