@@ -1,19 +1,19 @@
 # AWS EKS Cluster Configuration
 module "eks" {
-    source          = "terraform-aws-modules/eks/aws"
-    version         = "~> 20.0"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.0"
 
-    cluster_name    = "${var.environment}-three-tier-cluster"
-    cluster_version = var.cluster_version
-    cluster_endpoint_public_access = true
+  cluster_name                   = "${var.environment}-three-tier-cluster"
+  cluster_version                = var.cluster_version
+  cluster_endpoint_public_access = true
 
-    # Security: Disable public access entirely in strict environments, 
+  # Security: Disable public access entirely in strict environments, 
   # or keep it enabled but locked down to your CIDR block
-    vpc_id          = module.vpc.vpc_id
-    subnets         = module.vpc.private_subnets
+  vpc_id  = module.vpc.vpc_id
+  subnets = module.vpc.private_subnets
 
-    # Enable KMS Encryption for Kubernetes Secrets natively
-      create_kms_key = true
+  # Enable KMS Encryption for Kubernetes Secrets natively
+  create_kms_key = true
   cluster_encryption_config = {
     resources = ["secrets"]
   }
@@ -30,8 +30,8 @@ module "eks" {
       capacity_type  = "ON_DEMAND"
 
       # Labels map resources inside Kubernetes schedules
-        labels = {
-            Tier = "Application"
+      labels = {
+        Tier = "Application"
       }
 
       block_device_mappings = {
